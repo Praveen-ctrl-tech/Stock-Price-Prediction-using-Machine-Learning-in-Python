@@ -1,129 +1,166 @@
-# 📈🤖 Stock Price Prediction using Machine Learning in Python
 
-This project predicts whether buying a particular stock (Tesla in this case) will be **profitable or not** using **Machine Learning** and **Python**.  
-It utilizes historical stock data (2010–2020) and focuses on generating **buy/sell signals** through data analysis, feature engineering, and model training.
 
----
+# Stock Price Movement Prediction using Logistic Regression, SVM, and XGBoost
 
-## 🔍 Project Overview
+A machine learning project that predicts whether the **next day’s stock price** of **Asian Paints (ASIANPAINT.NS)** will **increase or decrease**.
+The model uses **25 years of historical data**, technical indicators, engineered features, and three ML algorithms:
 
-The primary goals of this project are to:
+* Logistic Regression
+* Support Vector Machine (SVM – RBF Kernel)
+* XGBoost Classifier
 
-- Analyze and visualize historical stock data  
-- Engineer new predictive financial features  
-- Build machine learning models to predict next-day price movements  
-- Compare model performance and interpret the results
+Each model is evaluated using complete performance metrics, including **Accuracy, Precision, Recall, F1-Score, ROC-AUC**, and **Confusion Matrix**.
 
 ---
 
-## 📁 Dataset
+## **Project Overview**
 
-The dataset used contains **Tesla stock prices** from **January 2010 to December 2020**.  
-It includes the following columns:
+Stock price direction prediction is a binary classification task where the goal is to determine whether the next day's closing price will go **UP (1)** or **DOWN (0)**.
+This project uses:
 
-| Column | Description |
-|---------|-------------|
-| `Date` | Date of record |
-| `Open` | Opening price of the stock |
-| `High` | Highest price of the day |
-| `Low` | Lowest price of the day |
-| `Close` | Closing price of the day |
-| `Adj Close` | Adjusted closing price |
-| `Volume` | Number of shares traded |
-
-💡 **Note:**  
-- Stock markets are closed on weekends and holidays, so some dates are missing.  
-- The `Adj Close` column was found to duplicate `Close`, and was dropped during preprocessing.
+* YFinance API for historical stock price data
+* Technical Indicators for feature engineering
+* Machine learning models to predict direction
+* Evaluation metrics for comprehensive model assessment
 
 ---
 
-## 🛠️ Technologies Used
+## **Features of This Project**
 
-| Library | Purpose |
-|----------|----------|
-| `Python` | Programming language |
-| `pandas`, `numpy` | Data handling and numerical computation |
-| `matplotlib`, `seaborn` | Data visualization and trend analysis |
-| `scikit-learn` | Machine learning models and preprocessing |
-| `xgboost` | Advanced boosting algorithm for high-performance prediction |
+### **1. Technical Indicators Included**
 
----
+The following indicators are used:
 
-## 🔄 Workflow
+* RSI (Relative Strength Index)
+* MACD + Signal Line
+* Bollinger Bands (Upper, Lower, Width)
+* ATR (Average True Range)
+* Return Lags (1-day, 3-day, 5-day)
+* Moving Average (MA20)
 
-### 🧹 **1. Data Preprocessing**
-- Load and inspect Tesla stock data  
-- Handle redundant and missing columns  
-- Extract date-based features (`day`, `month`, `year`)  
-- Add a **quarter-end flag** (`is_quarter_end`)  
-- Create derived features:
-  - `open-close` → Difference between opening and closing prices  
-  - `low-high` → Daily price volatility  
-  - `target` → 1 if next day’s closing price is higher, else 0
+### **2. ML Algorithms**
 
-### 📊 **2. Exploratory Data Analysis (EDA)**
-- Visualize closing price trends over time  
-- Plot yearly average price changes  
-- Study price behavior at quarter ends  
-- Identify outliers using boxplots  
-- Visualize correlations using heatmaps
+* Logistic Regression (baseline linear classifier)
+* SVM (RBF kernel for nonlinear separation)
+* XGBoost (gradient boosting decision trees)
 
-### ⚙️ **3. Feature Engineering**
-- Select relevant input features:
-  - `open-close`, `low-high`, `is_quarter_end`  
-- Normalize the data using **StandardScaler**
-- Split into training (90%) and validation (10%) sets
+### **3. Performance Metrics**
 
-### 🤖 **4. Model Building**
-Trained the following machine learning models:
+Each model prints:
 
-| Model | Description |
-|--------|--------------|
-| `Logistic Regression` | Baseline classification model |
-| `Support Vector Machine (SVC)` | Polynomial kernel-based classifier |
-| `XGBoost Classifier` | Boosting algorithm for higher accuracy |
+* Accuracy
+* Precision
+* Recall
+* F1 Score
+* ROC-AUC
+* Confusion Matrix
+* Classification Report
 
-### 🧾 **5. Evaluation**
-- Evaluated models using **ROC-AUC Score**
-- Plotted **Confusion Matrix** for validation results
-- Compared model performance
+### **4. Final Prediction**
+
+The code prints whether the **next day's price will go UP or DOWN** using each model.
 
 ---
 
-## 📈 Results
+## **Installation**
 
-| Model | Training AUC | Validation AUC |
-|--------|---------------|----------------|
-| Logistic Regression | ~0.52 | ~0.54 |
-| SVC (Polynomial) | ~0.47 | ~0.45 |
-| XGBoost | ~0.96 | ~0.57 |
-
-🧠 **Insights:**
-- XGBoost performs best but tends to **overfit**.  
-- Logistic Regression generalizes better despite lower accuracy.  
-- The model accuracy (~57%) is only slightly above random guessing, showing the complexity of stock prediction.
-
----
-
-## 📊 Visualizations
-
-- **Tesla Stock Price Trend (2010–2020)**  
-- **Distribution and Box Plots** for OHLC and Volume  
-- **Yearly Average Bar Charts**  
-- **Quarter-End Performance Comparison**  
-- **Correlation Heatmap**  
-- **Confusion Matrix for Model Evaluation**
-
----
-
-## ⚙️ Installation
+### **1. Clone the repository**
 
 ```bash
-# Clone the repository
-git clone https://github.com/your-username/Stock-Price-Prediction-using-Machine-Learning.git
+git clone https://github.com/<praveen-ctrl>/<praveen-ctrl>.git
+cd <praveen-ctrl>
+```
 
-# Navigate to the project directory
-cd Stock-Price-Prediction-using-Machine-Learning
+### **2. Install dependencies**
 
-# Install required libraries
+```bash
 pip install -r requirements.txt
+```
+
+### **3. Required libraries**
+
+Make sure you have the following packages:
+
+```
+yfinance
+pandas
+numpy
+scikit-learn
+xgboost
+```
+
+Install them manually if needed:
+
+```bash
+pip install yfinance pandas numpy scikit-learn xgboost
+```
+
+---
+
+## **How to Run the Project**
+
+Run the main script:
+
+```bash
+python stock_prediction.py
+```
+
+The script will:
+
+1. Download 25 years of Asian Paints historical stock data
+2. Generate all technical indicators
+3. Train Logistic Regression, SVM, and XGBoost models
+4. Evaluate each model
+5. Predict next-day price movement
+
+---
+
+## **Model Output Example**
+
+```
+=========== Logistic Regression ===========
+Accuracy: 0.61
+Precision: 0.64
+Recall: 0.58
+F1 Score: 0.60
+ROC-AUC: 0.67
+
+Confusion Matrix:
+[[145  68]
+ [ 91 132]]
+```
+
+Similar results are shown for SVM and XGBoost.
+
+---
+
+## **Next-Day Prediction Example**
+
+```
+NEXT DAY PREDICTION:
+Logistic Regression: UP
+SVM: DOWN
+XGBoost: UP
+```
+
+---
+
+## **Improvement Ideas**
+
+You can further improve model accuracy by:
+
+* Adding more indicators (RSI14, Stochastic, VWAP, OBV)
+* Hyperparameter tuning (GridSearchCV or Optuna)
+* Ensemble models (VotingClassifier)
+* Deep learning (LSTM with technical indicators)
+* Using multiple stocks and building a general model
+
+
+---
+
+## **Author**
+
+Developed by **Praveen**
+Feel free to connect and contribute.
+
+---
